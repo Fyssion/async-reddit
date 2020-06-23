@@ -28,15 +28,32 @@ import aiohttp
 from async_timeout import timeout
 
 from .objects import Subreddit, Redditor
-from .errors import NotFound, Forbidden, HTTPExeption, InvalidData
+from .errors import NotFound, Forbidden, HTTPException, InvalidData
 from .endpoints import SUBREDDIT_URL, REDDITOR_URL, JSON_URL
 
 
 class Client:
+    """A Reddit client
+
+    It is recommended you close the client with :func:`.close`
+    
+    Parameters
+    -----------
+    loop: Optional[:class:`asyncio.AbstractEventLoop`]
+        The :class:`asyncio.AbstractEventLoop` to use for async operations
+    session: Optional[:class:`asyncio]
+
+    """
+
     def __init__(self, *, loop=None, session=None):
         self.log_in = None
         self.loop = loop or asyncio.get_event_loop()
         self.session = session or aiohttp.ClientSession(loop=self.loop)
+
+    async def close(self):
+        """Close the client's session and wrap up all tasks"""
+        if not self.session.closed:
+            await self.session.close()
 
     async def get_headers(self):
         if not self.log_in:
@@ -57,7 +74,7 @@ class Client:
                         elif resp.status == 403:
                             raise Forbidden(resp)
                         else:
-                            raise HTTPExeption(resp)
+                            raise HTTPException(resp)
 
                     data = await resp.json()
 
@@ -68,6 +85,27 @@ class Client:
         return data
 
     async def fetch_subreddit(self, name):
+        """Fetch a subreddit from Reddit
+        
+        Parameters
+        -----------
+        name: :class:`str`
+            The name of the subreddit you want to fetch
+
+        Raises
+        -------
+        ~reddit.HTTPException
+            Fetching the subreddit failed
+        ~reddit.Forbidden
+            You do not have permission to access that subreddit
+        ~reddit.NotFound
+            That subreddit was not found
+
+        Returns
+        --------
+        :class:`~reddit.Subreddit`
+            The subreddit fetched
+        """
         url = SUBREDDIT_URL + name + JSON_URL
 
         data = await self._fetch(url)
@@ -84,6 +122,27 @@ class Client:
         return subreddit
 
     async def fetch_redditor(self, name):
+        """Fetch a redditor from Reddit
+        
+        Parameters
+        -----------
+        name: :class:`str`
+            The name of the redditor you want to fetch
+
+        Raises
+        -------
+        ~reddit.HTTPException
+            Fetching the redditor failed
+        ~reddit.Forbidden
+            You do not have permission to access that redditor
+        ~reddit.NotFound
+            That redditor was not found
+
+        Returns
+        --------
+        :class:`~reddit.Redditor`
+            The redditor fetched
+        """
         url = REDDITOR_URL + name + JSON_URL
 
         data = await self._fetch(url)
