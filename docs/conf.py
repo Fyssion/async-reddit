@@ -10,7 +10,7 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-from .. import setup
+import re
 import os
 import sys
 sys.path.insert(0, os.path.abspath('.'))
@@ -25,7 +25,11 @@ copyright = '2020, Fyssion'
 author = 'Fyssion'
 
 # The full version, including alpha/beta/rc tags
-release = setup.version
+version = ''
+with open('../reddit/__init__.py') as f:
+    version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE).group(1)
+
+release = version
 
 
 # -- General configuration ---------------------------------------------------
