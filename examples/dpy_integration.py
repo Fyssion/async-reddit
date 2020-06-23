@@ -20,7 +20,9 @@ class ExampleBot(commands.Bot):
         await super().close()
         await self.reddit.close()
 
+
 bot = ExampleBot()
+
 
 @bot.command()
 async def subreddit(ctx, *, name):
@@ -40,6 +42,7 @@ async def subreddit(ctx, *, name):
         em.set_thumbnail(url=subreddit.icon_img)
 
     await ctx.send(embed=em)
+
 
 @bot.command()
 async def redditor(ctx, *, name):
@@ -61,12 +64,11 @@ async def redditor(ctx, *, name):
 
     await ctx.send(embed=em)
 
+
 @subreddit.error
 @redditor.error
 async def handle_reddit_errors(ctx, error):
-    traceback.print_exception(
-        type(error), error, error.__traceback__
-    )
+    traceback.print_exception(type(error), error, error.__traceback__)
     if isinstance(error, commands.CommandInvokeError):
         original = error.original
 
@@ -77,6 +79,5 @@ async def handle_reddit_errors(ctx, error):
         elif isinstance(original, reddit.Forbidden):
             await ctx.send("Sorry, I couldn't access that from Reddit.")
 
+
 bot.run("token_here")
-
-

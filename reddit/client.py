@@ -36,7 +36,7 @@ class Client:
     """A Reddit client
 
     It is recommended you close the client with :func:`.close`
-    
+
     Parameters
     -----------
     loop: Optional[:class:`asyncio.AbstractEventLoop`]
@@ -87,7 +87,7 @@ class Client:
 
     async def fetch_subreddit(self, name):
         """Fetch a subreddit from Reddit
-        
+
         Parameters
         -----------
         name: :class:`str`
@@ -124,7 +124,7 @@ class Client:
 
     async def fetch_redditor(self, name):
         """Fetch a redditor from Reddit
-        
+
         Parameters
         -----------
         name: :class:`str`
