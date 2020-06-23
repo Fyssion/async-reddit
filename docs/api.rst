@@ -32,4 +32,4 @@ Exceptions
 
 .. autoexception:: NotFound
 
-.. autoexception:: InvalidData
+.. autoexception:: CannotParseData

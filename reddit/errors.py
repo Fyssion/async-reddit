@@ -63,6 +63,6 @@ class Forbidden(HTTPException):
     pass
 
 
-class InvalidData(ClientException):
+class CannotParseData(ClientException):
     """Raised when the :class:`.Client` cannot parse data from Reddit"""
     pass

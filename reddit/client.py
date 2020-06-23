@@ -28,7 +28,7 @@ import aiohttp
 from async_timeout import timeout
 
 from .objects import Subreddit, Redditor
-from .errors import NotFound, Forbidden, HTTPException, InvalidData
+from .errors import NotFound, Forbidden, HTTPException, CannotParseData
 from .endpoints import SUBREDDIT_URL, REDDITOR_URL, JSON_URL
 
 
@@ -113,12 +113,12 @@ class Client:
 
         # Subreddit kind is t5
         if data["kind"] != "t5":
-            raise InvalidData("Data kind does not match request.")
+            raise CannotParseData("Data kind does not match request.")
 
         try:
             subreddit = Subreddit(data)
         except KeyError:
-            raise InvalidData("Could not parse subreddit data from Reddit.")
+            raise CannotParseData("Could not parse subreddit data from Reddit.")
 
         return subreddit
 
@@ -150,11 +150,11 @@ class Client:
 
         # Redditor kind is t2
         if data["kind"] != "t2":
-            raise InvalidData("Data kind does not match request.")
+            raise CannotParseData("Data kind does not match request.")
 
         try:
             redditor = Redditor(data)
         except KeyError:
-            raise InvalidData("Could not parse redditor data from Reddit.")
+            raise CannotParseData("Could not parse redditor data from Reddit.")
 
         return redditor
