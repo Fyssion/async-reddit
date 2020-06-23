@@ -26,26 +26,6 @@ from datetime import datetime
 
 from .endpoints import BASE_URL
 
-
-class Redditor:
-    def __init__(self, data):
-        # Here we go though the json data and convert
-        # each value into an attribute.
-        data = data["data"]
-        self.data = data
-        self.is_employee = data["is_employee"]
-        self.name = data["name"]
-        self.name_prefixed = "u/" + self.name
-        self.link_karma = data["link_karma"]
-        self.icon_img = data["icon_img"]
-        self.comment_karma = data["comment_karma"]
-        self.has_verified_email = data["has_verified_email"]
-        self.created_at = datetime.utcfromtimestamp(data["created_utc"])
-
-    def __str__(self):
-        return self.name_prefixed
-
-
 class Subreddit:
     def __init__(self, data):
         data = data["data"]
@@ -64,3 +44,28 @@ class Subreddit:
 
     def __str__(self):
         return self.display_name_prefixed
+
+class Redditor:
+    def __init__(self, data):
+        data = data["data"]
+        self.data = data
+        self.is_employee = data["is_employee"]
+        self.name = data["name"]
+        self.name_prefixed = "u/" + self.name
+        self.link_karma = data["link_karma"]
+        self.icon_img = data["icon_img"]
+        self.comment_karma = data["comment_karma"]
+        self.has_verified_email = data["has_verified_email"]
+        self.url = BASE_URL + data["url"]
+        self.created_at = datetime.utcfromtimestamp(data["created_utc"])
+        self.has_verified_email = data["has_verified_email"]
+        self.is_gold = data["is_gold"]
+        self.is_mod = data["is_mod"]
+        self.verified = data["verified"]
+        self.id = data["id"]
+
+        self.subreddit = Subreddit(data["subreddit"])
+
+    def __str__(self):
+        return self.name_prefixed
+
