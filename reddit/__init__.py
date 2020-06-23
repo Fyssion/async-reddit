@@ -25,5 +25,5 @@ SOFTWARE.
 __version__ = "0.1.1"
 
 from .client import Client
-from .objects import Subreddit, Redditor
+from .models import Subreddit, Redditor
 from .errors import *
