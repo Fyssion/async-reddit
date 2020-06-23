@@ -8,6 +8,17 @@
 
 An async API wrapper for read-only Reddit written in Python
 
+## Motivation
+
+I wanted a simple and easy-to-use async API wrapper for Reddit's read-only API,
+written in python.
+
+The other Reddit API wrappers out there either weren't async, weren't finished, 
+or weren't completely documented. I also wanted to be able to access Reddit
+without providing login information, as well as builtin discord.py integration.
+
+So async-reddit was born.
+
 ## Installation
 
 Install with your favorite variant of the below:
