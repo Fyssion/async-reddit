@@ -4,13 +4,13 @@ API Reference
 ==============
 
 Client
------
+-------
 
 .. autoclass:: Client
     :members:
 
 Reddit Models
-------
+--------------
 
 .. autoclass:: Subreddit
     :members:
