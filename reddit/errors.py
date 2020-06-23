@@ -23,16 +23,24 @@ SOFTWARE.
 """
 
 
-# Base exception that all exceptions subclass
 class RedditException(Exception):
+    """Base exception that all exceptions subclass"""
     pass
 
 
 class ClientException(RedditException):
+    """Any excepion that is raised from the :class:`.Client`"""
     pass
 
 
 class HTTPException(RedditException):
+    """Any exception that comes from Reddit
+    
+    Attributes
+    -----------
+    response: :class:`aiohttp.ClientResponse`
+        The response from Reddit
+    """
     def __init__(self, response):
         self.response = response
         self.status = response.status
@@ -40,12 +48,21 @@ class HTTPException(RedditException):
 
 
 class NotFound(HTTPException):
+    """A 404: Not Found exception
+
+    Subclasses :class:`HTTPException`
+    """
     pass
 
 
 class Forbidden(HTTPException):
+    """A 403: Forbidden exception
+
+    Subclasses :class:`HTTPException`
+    """
     pass
 
 
 class InvalidData(ClientException):
+    """Raised when the :class:`.Client` cannot parse data from Reddit"""
     pass
