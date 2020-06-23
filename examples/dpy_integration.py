@@ -50,7 +50,6 @@ async def redditor(ctx, *, name):
 
     em = discord.Embed(
         title=redditor.name,
-        description=redditor.description,
         url=redditor.url,
         color=discord.Color.red(),
     )
@@ -73,8 +72,7 @@ async def handle_reddit_errors(ctx, error):
         original = error.original
 
         if isinstance(original, reddit.NotFound):
-            query = discord.utils.escape_markdown(ctx.args[-1])
-            await ctx.send(f"I couldn't find `{query}`. Sorry.")
+            await ctx.send("I couldn't find that on Reddit. Sorry.")
 
         elif isinstance(original, reddit.Forbidden):
             await ctx.send("Sorry, I couldn't access that from Reddit.")
