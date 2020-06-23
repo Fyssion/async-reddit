@@ -41,7 +41,8 @@ class Client:
     -----------
     loop: Optional[:class:`asyncio.AbstractEventLoop`]
         The :class:`asyncio.AbstractEventLoop` to use for async operations
-    session: Optional[:class:`asyncio]
+    session: Optional[:class:`aiohttp.ClientSession`]
+        The :class:`aiohttp.ClientSession` to use when fetching from Reddit
 
     """
 
@@ -104,7 +105,7 @@ class Client:
         Returns
         --------
         :class:`~reddit.Subreddit`
-            The subreddit fetched
+            The :class:`~reddit.Subreddit` fetched
         """
         url = SUBREDDIT_URL + name + JSON_URL
 
@@ -141,7 +142,7 @@ class Client:
         Returns
         --------
         :class:`~reddit.Redditor`
-            The redditor fetched
+            The :class:`~reddit.Redditor` fetched
         """
         url = REDDITOR_URL + name + JSON_URL
 
